@@ -4,12 +4,10 @@ body {
     background-color: #c8c8c8;
 }
 
-#container {
+#main {
     background-color: #fff;
     padding: 15px;
     width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 #top {
