@@ -1,4 +1,11 @@
 <template name="search">
+
+    <h1>Artikkeldatabase</h1>
+    <p>Her kan du søke etter skribenter, layoutansvarlige, artikkeltitler og andre stikkord.</p>
+    {{#if currentUser}}
+        <b>Legg til eller endre artikler:</b>{{> admin}}
+    {{/if}}
+
     <input id="searchField" type="text" placeholder="Søketekst" autofocus/>
 
     <table>
