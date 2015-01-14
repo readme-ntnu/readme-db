@@ -1,0 +1,26 @@
+<template name="search">
+    <input id="searchField" type="text" placeholder="Søketekst" autofocus/>
+
+    <table>
+        <tr>
+            <th>Utgave</th>
+            <th>Side</th>
+            <th>Title</th>
+            <th>Skribent</th>
+            <th>Layout</th>
+            <th>Spalte</th>
+            <th>Tags</th>
+        </tr>
+      {{#each article}}
+          <tr class="article {{selectedClass}}">
+              <td>{{edition}}</td>
+              <td>{{pages}}</td>
+              <td>{{title}}</td>
+              <td>{{author}}</td>
+              <td>{{layout}}</td>
+              <td>{{type}}</td>
+              <td>{{tags}}</td>
+          </tr>
+      {{/each}}
+    </table>
+</template>

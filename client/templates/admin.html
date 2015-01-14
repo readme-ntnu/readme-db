@@ -1,0 +1,17 @@
+<template name="admin">
+    <form>
+        <ul id="newArticleFormList">
+            <li><input id="addEdition" type="text" placeholder="Utgave" value="{{edition}}" />
+                <input id="addPages" type="text" placeholder="Sidetall" value="{{pages}}" />
+                <input id="addTitle" type="text" placeholder="Title" value="{{title}}" />
+                <input id="addAuthor" type="text" placeholder="Skribent"  value="{{author}}"/>
+                <input id="addLayout" type="text" placeholder="Layoutansvarlig" value="{{layout}}" />
+                <input id="addType" type="text" placeholder="Spalte" value="{{type}}" />
+                <input id="addTags" type="text" placeholder="Tags"  value="{{tags}}"/></li>
+            <li><input type="button" id="new" value="Ny" />
+                <input type="button" id="edit" value="Endre valgt" />
+                <input type="button" id="remove" value="Slett valgt" />
+                <input type="button" id="empty" value="Tøm alle felt" /></li>
+        </ul>
+    </form>
+</template>

@@ -1,0 +1,14 @@
+<template name="header">
+
+  <div id="top">
+      {{> loginButtons}}
+      <img src="readme.png" alt="readme">
+  </div>
+
+  <h1>Artikkeldatabase</h1>
+  <p>Her kan du søke etter skribenter, layoutansvarlige, artikkeltitler og andre stikkord.</p>
+  {{#if currentUser}}
+    <b>Legg til eller endre artikler:</b>{{> admin}}
+  {{/if}}
+
+</template>
