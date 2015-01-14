@@ -1,0 +1,67 @@
+<head>
+
+    <title>readme-db</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div id="container">
+        <div id="top">
+            {{> loginButtons}}
+            <img src="readme.png" alt="readme">
+        </div>
+
+        <h1>Artikkeldatabase</h1>
+        <p>Her kan du søke etter skribenter, layoutansvarlige, artikkeltitler og andre stikkord.</p>
+        {{#if currentUser}}
+            <b>Legg til eller endre artikler:</b>
+            {{> admin}}
+        {{/if}}
+        {{> search}}
+    </div>
+</body>
+
+<template name="search">
+    <input id="searchField" type="text" placeholder="Søketekst" autofocus/>
+
+    <table>
+        <tr>
+            <th>Utgave</th>
+            <th>Side</th>
+            <th>Title</th>
+            <th>Skribent</th>
+            <th>Layout</th>
+            <th>Spalte</th>
+            <th>Tags</th>
+        </tr>
+        {{#each article}}
+        <tr class="article {{selectedClass}}">
+            <td>{{edition}}</td>
+            <td>{{pages}}</td>
+            <td>{{title}}</td>
+            <td>{{author}}</td>
+            <td>{{layout}}</td>
+            <td>{{type}}</td>
+            <td>{{tags}}</td>
+        </tr>
+        {{/each}}
+    </table>
+</template>
+
+<template name="admin">
+    <form>
+        <ul id="newArticleFormList">
+            <li><input id="addEdition" type="text" placeholder="Utgave" value="{{edition}}" />
+            <input id="addPages" type="text" placeholder="Sidetall" value="{{pages}}" />
+            <input id="addTitle" type="text" placeholder="Title" value="{{title}}" />
+            <input id="addAuthor" type="text" placeholder="Skribent"  value="{{author}}"/>
+            <input id="addLayout" type="text" placeholder="Layoutansvarlig" value="{{layout}}" />
+            <input id="addType" type="text" placeholder="Spalte" value="{{type}}" />
+            <input id="addTags" type="text" placeholder="Tags"  value="{{tags}}"/></li>
+            <li><input type="button" id="new" value="Ny" />
+            <input type="button" id="edit" value="Endre valgt" />
+            <input type="button" id="remove" value="Slett valgt" />
+            <input type="button" id="empty" value="Tøm alle felt" /></li>
+        </ul>
+    </form>
+</template>
