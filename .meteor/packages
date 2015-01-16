@@ -8,7 +8,7 @@ autopublish
 insecure
 accounts-password
 accounts-ui
-bootstrap
 jquery
 iron:router
 
+twbs:bootstrap
