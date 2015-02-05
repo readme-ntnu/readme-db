@@ -1,18 +1,5 @@
-body {
-    background-color: #c8c8c8;
-}
-
-#main {
-    background-color: #fff;
-    padding: 15px;
-    width: 1200px;
-}
-
 #top {
-    text-align: right;
-    background-color: #fff;
-    margin-bottom: 30px;
+    margin-top: 40px;
+    margin-bottom: 40px;
 }
-#top a {
-    color: #000000;
-}
+

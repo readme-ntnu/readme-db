@@ -1,8 +1,7 @@
 <template name="layout">
+    {{> navbar}}
     <div class="container">
-        <div id="main">
-            {{> header}}
-            {{> yield}}
-        </div>
+        {{> header}}
+        {{> yield}}
     </div>
 </template>
