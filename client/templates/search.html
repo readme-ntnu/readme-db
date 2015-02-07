@@ -1,39 +1,42 @@
 <template name="search" xmlns="http://www.w3.org/1999/html">
 
-    <h1>Artikkeldatabase</h1>
-    {{#if currentUser}}
-        <b>Legg til eller endre artikler:</b>{{> admin}}
-    {{/if}}
-
-    <div class="form-group col-xs-6">
-        <input type="text" id="searchField" class="form-control" placeholder="Søketekst" autofocus/>
-        <span class="help-block">Søk etter skribenter, layoutansvarlige, artikkeltitler eller andre stikkord.</span>
+    <div class="row">
+        <div class="col-sm-12">
+            <h1>Artikkeldatabase</h1>
+        </div>
     </div>
 
-    <table class="table table-striped table-hover">
-        <thead>
-        <tr>
-            <th>Utgave</th>
-            <th>Side</th>
-            <th>Title</th>
-            <th>Skribent</th>
-            <th>Layout</th>
-            <th>Spalte</th>
-            <th>Tags</th>
-        </tr>
-        </thead>
-        <tbody>
-        {{#each article}}
-          <tr class="{{selectedClass}}">
-              <td>{{edition}}</td>
-              <td>{{pages}}</td>
-              <td>{{title}}</td>
-              <td>{{author}}</td>
-              <td>{{layout}}</td>
-              <td>{{type}}</td>
-              <td>{{tags}}</td>
-          </tr>
-      {{/each}}
-        </tbody>
-    </table>
+    <div class="row">
+        <div class="form-group col-xs-6">
+            <input type="text" id="searchField" class="form-control" placeholder="Søketekst" autofocus/>
+            <span class="help-block">Søk etter skribenter, layoutansvarlige, artikkeltitler eller andre stikkord.</span>
+        </div>
+
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th>Utgave</th>
+                <th>Side</th>
+                <th>Title</th>
+                <th>Skribent</th>
+                <th>Layout</th>
+                <th>Spalte</th>
+                <th>Tags</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each article}}
+              <tr class="{{selectedClass}}">
+                  <td>{{edition}}</td>
+                  <td>{{pages}}</td>
+                  <td>{{title}}</td>
+                  <td>{{author}}</td>
+                  <td>{{layout}}</td>
+                  <td>{{type}}</td>
+                  <td>{{tags}}</td>
+              </tr>
+          {{/each}}
+            </tbody>
+        </table>
+    </div>
 </template>
