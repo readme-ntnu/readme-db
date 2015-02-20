@@ -12,3 +12,5 @@ jquery
 iron:router
 
 twbs:bootstrap
+cfs:standard-packages
+cfs:filesystem
