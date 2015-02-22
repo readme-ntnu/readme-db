@@ -3,8 +3,13 @@
     <h1>Admin</h1>
     {{#if currentUser}}
 
-        {{> upload}}
+        <!-- Browse and upload button, and text field showing selected file -->
+        <h3>Last opp ny utgave</h3>
+        {{> upload_bootstrap fileTypes=".pdf"}}
 
+        <!-- print all already uploaded files -->
+        {{> showFiles}}
+        <!--
         <div class="form-group">
             <label for="addEdition">Utgavenummer</label>
             <input class="form-control" id="addEdition" type="text" placeholder="YYYY-XX" value="{{edition}}" />
@@ -43,7 +48,7 @@
         <button type="submit" class="btn btn-default" id="edit">Endre valgt</button>
         <button type="submit" class="btn btn-default" id="remove">Slett valgt</button>
         <button type="submit" class="btn btn-default" id="empty">Tøm alle felt</button>
-
+-->
 
 
     {{else}}

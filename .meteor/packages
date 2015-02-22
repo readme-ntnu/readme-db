@@ -12,5 +12,6 @@ jquery
 iron:router
 
 twbs:bootstrap
-cfs:standard-packages
-cfs:filesystem
+natestrauser:x-editable-bootstrap
+tomi:upload-server
+tomi:upload-jquery

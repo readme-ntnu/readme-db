@@ -32,6 +32,10 @@ Template.admin.events({
 
 Template.admin.helpers({
 
+    'files': function() {
+        return Files.find().fetch();
+    },
+
     'edition': function () {
         if (Session.get('selectedArticle'))
             return ArticleList.find({_id: Session.get('selectedArticle')}).fetch()[0].edition;
