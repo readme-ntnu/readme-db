@@ -1,19 +1,18 @@
 <template name="navbar">
 
   <nav class="navbar navbar-inverse">
-      <div class="container-fluid">
+      <div class="container">
           <div class="navbar-header">
               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="/">readme</a>
+              <a class="navbar-brand" href="/">Søk</a>
           </div>
           <div class="collapse navbar-collapse" id="myNavbar">
               <ul class="nav navbar-nav">
-                  <li><a href="/">Arkiv</a></li>
-                  <li><a href="/db">Artikkeldatabase</a></li>
+                  <li><a href="http://readme.abakus.no">Arkiv</a></li>
                   <li><a href="http://abakus.no">Abakus.no</a></li>
                   {{#if currentUser}}
                       <li><a href="/admin">Admin</a></li>

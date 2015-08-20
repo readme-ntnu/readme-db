@@ -1,58 +1,56 @@
 <template name="admin">
 
-    <h1>Admin</h1>
-    {{#if currentUser}}
+  <h1>Admin</h1>
+  {{#if currentUser}}
 
-        <!-- Browse and upload button, and text field showing selected file -->
-        <h3>Last opp ny utgave</h3>
-        {{> upload_bootstrap fileTypes=".pdf"}}
+    <div class="form-group">
+      <label for="addEdition">Utgavenummer</label>
+      <input class="form-control" id="addEdition" type="text" placeholder="YYYY-XX" value="{{edition}}" />
+    </div>
 
-        <!-- print all already uploaded files -->
-        {{> showFiles}}
-        <!--
-        <div class="form-group">
-            <label for="addEdition">Utgavenummer</label>
-            <input class="form-control" id="addEdition" type="text" placeholder="YYYY-XX" value="{{edition}}" />
-        </div>
+    <div class="form-group">
+      <label for="addUrl">URL til utgave</label>
+      <input class="form-control" id="addUrl" type="text"
+        placeholder="http://readme.abakus.no/YYYY/YYYY-XX.pdf" value="{{url}}" />
+    </div>
 
-        <div class="form-group">
-            <label for="addPages">Sidetall</label>
-            <input class="form-control"  id="addPages" type="text" placeholder="08,09" value="{{pages}}" />
-        </div>
+    <div class="form-group">
+      <label for="addPages">Sidetall</label>
+      <input class="form-control"  id="addPages" type="text" placeholder="08,09" value="{{pages}}" />
+    </div>
 
-        <div class="form-group">
-            <label for="addTitle">Tittel</label>
-            <input class="form-control"  id="addTitle" type="text" placeholder="Ostekake på Stripa" value="{{title}}" />
-        </div>
+    <div class="form-group">
+      <label for="addTitle">Tittel</label>
+      <input class="form-control"  id="addTitle" type="text" placeholder="Ostekake på Stripa" value="{{title}}" />
+    </div>
 
-        <div class="form-group">
-            <label for="addTitle">Skribent</label>
-            <input class="form-control"  id="addAuthor" type="text" placeholder="Ola Nordmann"  value="{{author}}"/>
-        </div>
-        <div class="form-group">
-            <label for="addLayout">Layout</label>
-            <input class="form-control"  id="addLayout" type="text" placeholder="Kari Nordmann" value="{{layout}}" />
-        </div>
+    <div class="form-group">
+      <label for="addTitle">Skribent</label>
+      <input class="form-control"  id="addAuthor" type="text" placeholder="Ola Nordmann"  value="{{author}}"/>
+    </div>
 
-        <div class="form-group">
-            <label for="addType">Spalte</label>
-            <input class="form-control"  id="addType" type="text" placeholder="Gløsløken" value="{{type}}" />
-        </div>
+    <div class="form-group">
+      <label for="addLayout">Layout</label>
+      <input class="form-control"  id="addLayout" type="text" placeholder="Kari Nordmann" value="{{layout}}" />
+    </div>
 
-        <div class="form-group">
-            <label for="addTags">Tags</label>
-            <input class="form-control"  id="addTags" type="text" placeholder="Tags"  value="{{tags}}"/>
-        </div>
+    <div class="form-group">
+      <label for="addType">Spalte</label>
+      <input class="form-control"  id="addType" type="text" placeholder="Gløsløken" value="{{type}}" />
+    </div>
 
-        <button type="submit" class="btn btn-default" id="new">Legg til</button>
-        <button type="submit" class="btn btn-default" id="edit">Endre valgt</button>
-        <button type="submit" class="btn btn-default" id="remove">Slett valgt</button>
-        <button type="submit" class="btn btn-default" id="empty">Tøm alle felt</button>
--->
+    <div class="form-group">
+      <label for="addTags">Tags</label>
+      <input class="form-control"  id="addTags" type="text" placeholder="Tags"  value="{{tags}}"/>
+    </div>
 
+    <button type="submit" class="btn btn-default" id="new">Legg til</button>
+    <button type="submit" class="btn btn-default" id="edit">Endre valgt</button>
+    <button type="submit" class="btn btn-default" id="remove">Slett valgt</button>
+    <button type="submit" class="btn btn-default" id="empty">Tøm alle felt</button>
 
-    {{else}}
-        <h3>Vennligst logg inn.</h3>
-    {{/if}}
+  {{else}}
+    <h3>Vennligst logg inn.</h3>
+  {{/if}}
 
 </template>
