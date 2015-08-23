@@ -3,6 +3,15 @@
     margin-bottom: 40px;
 }
 
+.img-header {
+    max-width: 600px;
+    margin: auto;
+}
+
+.navbar {
+    border-radius: 0;
+}
+
 .btn-file {
     position: relative;
     overflow: hidden;
