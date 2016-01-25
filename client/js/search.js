@@ -1,6 +1,9 @@
 Template.search.events({
     'click tr': function() {
         Session.set('selectedArticle', this._id);
+        if (Meteor.userId()) {
+            sAlert.info('Artikkel "' + this.title + '" valgt. For å endre/fjerne <a href="/admin">trykk her.</a>', {html: true});
+        }
     },
     'keyup [type=text]': function(event, template) {
         Session.set('searchText', event.target.value);

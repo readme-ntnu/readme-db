@@ -3,29 +3,63 @@ Template.admin.events({
         event.preventDefault();
         var edition = template.find("#addEdition").value;
         var url = template.find("#addUrl").value;
-        var pages = template.find("#addPages").value.split(",");
+        var pages = template.find("#addPages").value.split(",").map(Number);
         var title = template.find("#addTitle").value;
         var author = template.find("#addAuthor").value;
         var layout = template.find("#addLayout").value;
         var type = template.find("#addType").value;
         var tags = template.find("#addTags").value.split(",");
-        Meteor.call('insertArticle', edition, url, pages, title, author, layout, type, tags);
+
+        const mandatoryFields = {
+            'Utgave': edition,
+            'URL': url,
+            'Sidetall': pages,
+            'Tittel': title
+        };
+
+        if (formIsOK(mandatoryFields) && !articleAlreadyExists(edition, pages)) {
+            Meteor.call('insertArticle', edition, url, pages, title, author, layout, type, tags);
+            sAlert.success('Artikkel "' + title + '" ble lagt til.');
+        }
     },
-    'click #edit': function(theEvent, template) {
-        theEvent.preventDefault();
+    'click #edit': function(event, template) {
+        event.preventDefault();
         var selectedArticle = Session.get('selectedArticle');
         var edition = template.find("#addEdition").value;
         var url = template.find("#addUrl").value;
-        var pages = template.find("#addPages").value.split(",");
+        var pages = template.find("#addPages").value.split(",").map(Number);
         var title = template.find("#addTitle").value;
         var author = template.find("#addAuthor").value;
         var layout = template.find("#addLayout").value;
         var type = template.find("#addType").value;
         var tags = template.find("#addTags").value.split(",");
-        Meteor.call('updateArticle', selectedArticle, edition, url, pages, title, author, layout, type, tags);
+
+        var mandatoryFields = {
+            'Utgave': edition,
+            'URL': url,
+            'Sidetall': pages,
+            'Tittel': title
+        };
+
+        if (!selectedArticle) {
+            sAlert.error('Ingen artikkel er valgt.');
+        }
+        else if (formIsOK(mandatoryFields)) {
+            Meteor.call('updateArticle', selectedArticle, edition, url, pages, title, author, layout, type, tags);
+            sAlert.success('Artikkel "' + title + '" ble endret.');
+        }
     },
-    'click #remove': function(theEvent, theTemplate) {
-        Meteor.call('removeArticle', Session.get('selectedArticle'));
+    'click #remove': function(event, template) {
+        var selectedArticle = Session.get('selectedArticle');
+        var title = template.find("#addTitle").value;
+        Meteor.call('removeArticle', selectedArticle);
+        if (!selectedArticle) {
+            sAlert.warning('Ingen artikkel er valgt.');
+        }
+        else {
+            sAlert.success('Artikkel "' + title + '" ble fjernet.');
+        }
+        Session.set('selectedArticle', null);
     },
     'click #empty': function() {
         Session.set('selectedArticle', null);
@@ -34,39 +68,61 @@ Template.admin.events({
 
 Template.admin.helpers({
 
-    'files': function() {
-        return Files.find().fetch();
-    },
     'edition': function () {
         if (Session.get('selectedArticle'))
-            return ArticleList.find({_id: Session.get('selectedArticle')}).fetch()[0].edition;
+            return ArticleList.findOne({_id: Session.get('selectedArticle')}).edition;
     },
     'url': function () {
         if (Session.get('selectedArticle'))
-            return ArticleList.find({_id: Session.get('selectedArticle')}).fetch()[0].url;
+            return ArticleList.findOne({_id: Session.get('selectedArticle')}).url;
     },
     'pages': function () {
         if (Session.get('selectedArticle'))
-            return ArticleList.find({_id: Session.get('selectedArticle')}).fetch()[0].pages;
+            return ArticleList.findOne({_id: Session.get('selectedArticle')}).pages;
     },
     'title': function () {
         if (Session.get('selectedArticle'))
-            return ArticleList.find({_id: Session.get('selectedArticle')}).fetch()[0].title;
+            return ArticleList.findOne({_id: Session.get('selectedArticle')}).title;
     },
     'author': function () {
         if (Session.get('selectedArticle'))
-            return ArticleList.find({_id: Session.get('selectedArticle')}).fetch()[0].author;
+            return ArticleList.findOne({_id: Session.get('selectedArticle')}).author;
     },
     'layout': function () {
         if (Session.get('selectedArticle'))
-            return ArticleList.find({_id: Session.get('selectedArticle')}).fetch()[0].layout;
+            return ArticleList.findOne({_id: Session.get('selectedArticle')}).layout;
     },
     'type': function () {
         if (Session.get('selectedArticle'))
-            return ArticleList.find({_id: Session.get('selectedArticle')}).fetch()[0].type;
+            return ArticleList.findOne({_id: Session.get('selectedArticle')}).type;
     },
     'tags': function () {
         if (Session.get('selectedArticle'))
-            return ArticleList.find({_id: Session.get('selectedArticle')}).fetch()[0].tags;
+            return ArticleList.findOne({_id: Session.get('selectedArticle')}).tags;
     }
 });
+
+// Checks if form is filled out properly. Warns user if it is not.
+var formIsOK = function (fieldsToCheckObject) {
+    var ok = true;
+    _.each(fieldsToCheckObject, function (value, key) {
+        if (!value || value.length === 0) {
+            sAlert.warning(key + ' mangler.');
+            ok = false;
+        }
+    });
+    return ok;
+};
+
+// Checks if an article already exists at given page in given edition. Warns user if true.
+var articleAlreadyExists = function (edition, pages) {
+    var articleExists = ArticleList.find(
+            {
+                'edition': edition,
+                'pages': {'$in': pages}
+            }).count() > 0;
+    if (articleExists) {
+        sAlert.warning('Det finnes allerede en artikkel på side ' + pages + ' i utgave ' + edition + '.');
+    }
+    return articleExists;
+};
