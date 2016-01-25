@@ -8,6 +8,15 @@ Template.search.events({
 });
 
 Template.search.helpers({
+    // Updates URL without loading page. Makes sure the search text field's value equals the searchText variable.
+    'searchText': function() {
+        if (!Session.get('searchText') || Session.get('searchText').trim().length <= 0) {
+            history.pushState({}, "", "/");
+            return "";
+        }
+        history.pushState({}, "", Session.get('searchText'));
+        return Session.get('searchText');
+    },
     'article': function() {
 
         // If search field is empty, show all
