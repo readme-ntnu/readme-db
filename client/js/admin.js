@@ -57,7 +57,7 @@ Template.admin.events({
             sAlert.warning('Ingen artikkel er valgt.');
         }
         else {
-            sAlert.success('Artikkel "' + title + '" ble fjernet.');
+            sAlert.success('Artikkel "' + title + '" ble slettet.');
         }
         Session.set('selectedArticle', null);
     },
