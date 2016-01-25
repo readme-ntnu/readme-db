@@ -3,7 +3,7 @@ Template.admin.events({
         event.preventDefault();
         var edition = template.find("#addEdition").value;
         var url = template.find("#addUrl").value;
-        var pages = template.find("#addPages").value.split(",").map(Number);
+        var pages = template.find("#addPages").value.split(",");
         var title = template.find("#addTitle").value;
         var author = template.find("#addAuthor").value;
         var layout = template.find("#addLayout").value;
@@ -27,7 +27,7 @@ Template.admin.events({
         var selectedArticle = Session.get('selectedArticle');
         var edition = template.find("#addEdition").value;
         var url = template.find("#addUrl").value;
-        var pages = template.find("#addPages").value.split(",").map(Number);
+        var pages = template.find("#addPages").value.split(",");
         var title = template.find("#addTitle").value;
         var author = template.find("#addAuthor").value;
         var layout = template.find("#addLayout").value;
