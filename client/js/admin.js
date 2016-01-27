@@ -17,7 +17,7 @@ Template.admin.events({
             'Tittel': title
         };
 
-        if (formIsOK(mandatoryFields) && !articleAlreadyExists(edition, pages)) {
+        if (formIsOK(mandatoryFields) && !articleAlreadyExists(edition, pages, title)) {
             Meteor.call('insertArticle', edition, url, pages, title, author, layout, type, tags);
             sAlert.success('Artikkel "' + title + '" ble lagt til.');
         }
@@ -107,7 +107,7 @@ var formIsOK = function (fieldsToCheckObject) {
     var ok = true;
     _.each(fieldsToCheckObject, function (value, key) {
         if (!value || value.length === 0) {
-            sAlert.warning(key + ' mangler.');
+            sAlert.error(key + ' mangler.');
             ok = false;
         }
     });
@@ -115,14 +115,14 @@ var formIsOK = function (fieldsToCheckObject) {
 };
 
 // Checks if an article already exists at given page in given edition. Warns user if true.
-var articleAlreadyExists = function (edition, pages) {
-    var articleExists = ArticleList.find(
-            {
-                'edition': edition,
-                'pages': {'$in': pages}
-            }).count() > 0;
+var articleAlreadyExists = function (edition, pages, title) {
+    var articleExists = ArticleList.find({
+            'edition': edition,
+            'pages': {'$in': pages},
+            'title': title
+        }).count() > 0;
     if (articleExists) {
-        sAlert.warning('Det finnes allerede en artikkel på side ' + pages + ' i utgave ' + edition + '.');
+        sAlert.error('Denne artikkelen finnes allerede.');
     }
     return articleExists;
 };
