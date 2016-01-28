@@ -41,5 +41,13 @@ Template.search.helpers({
         if (Session.get('selectedArticle') === this._id) {
             return 'selected';
         }
+    },
+    'getPDFlocation': function (pages) {
+        console.log(pages);
+        if(pages.length === 1 ){
+            return Number(pages);
+        }
+        // Lengt greater than one, give first page
+        return Number(pages[0]);
     }
 });
