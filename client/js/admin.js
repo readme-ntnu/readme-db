@@ -1,64 +1,34 @@
 Template.admin.events({
     'click #new': function(event, template) {
         event.preventDefault();
-        var edition = template.find("#addEdition").value;
-        var url = template.find("#addUrl").value;
-        var pages = template.find("#addPages").value.split(",");
-        var title = template.find("#addTitle").value;
-        var author = template.find("#addAuthor").value;
-        var layout = template.find("#addLayout").value;
-        var type = template.find("#addType").value;
-        var tags = template.find("#addTags").value.split(",");
-
-        const mandatoryFields = {
-            'Utgave': edition,
-            'URL': url,
-            'Sidetall': pages,
-            'Tittel': title
-        };
-
-        if (formIsOK(mandatoryFields) && !articleAlreadyExists(edition, pages, title)) {
-            Meteor.call('insertArticle', edition, url, pages, title, author, layout, type, tags);
-            sAlert.success('Artikkel "' + title + '" ble lagt til.');
+        var aFields = getFormFields(template);
+        if (formIsOK(template) && !articleAlreadyExists(aFields.edition, aFields.pages, aFields.title)) {
+            Meteor.call('insertArticle', aFields);
+            sAlert.success('Artikkel "' + aFields.title + '" ble lagt til.');
         }
     },
     'click #edit': function(event, template) {
         event.preventDefault();
-        var selectedArticle = Session.get('selectedArticle');
-        var edition = template.find("#addEdition").value;
-        var url = template.find("#addUrl").value;
-        var pages = template.find("#addPages").value.split(",");
-        var title = template.find("#addTitle").value;
-        var author = template.find("#addAuthor").value;
-        var layout = template.find("#addLayout").value;
-        var type = template.find("#addType").value;
-        var tags = template.find("#addTags").value.split(",");
-
-        var mandatoryFields = {
-            'Utgave': edition,
-            'URL': url,
-            'Sidetall': pages,
-            'Tittel': title
-        };
-
-        if (!selectedArticle) {
+        const selectedArticleID = Session.get('selectedArticle');
+        if (!selectedArticleID) {
             sAlert.error('Ingen artikkel er valgt.');
+            return;
         }
-        else if (formIsOK(mandatoryFields)) {
-            Meteor.call('updateArticle', selectedArticle, edition, url, pages, title, author, layout, type, tags);
+        if (formIsOK(template)) {
+            const title = template.find("#addTitle").value;
+            Meteor.call('updateArticle', selectedArticleID, getFormFields(template));
             sAlert.success('Artikkel "' + title + '" ble endret.');
         }
     },
     'click #remove': function(event, template) {
-        var selectedArticle = Session.get('selectedArticle');
-        var title = template.find("#addTitle").value;
-        Meteor.call('removeArticle', selectedArticle);
+        const selectedArticle = Session.get('selectedArticle');
         if (!selectedArticle) {
             sAlert.warning('Ingen artikkel er valgt.');
+            return;
         }
-        else {
-            sAlert.success('Artikkel "' + title + '" ble slettet.');
-        }
+        const title = template.find("#addTitle").value;
+        sAlert.success('Artikkel "' + title + '" ble slettet.');
+        Meteor.call('removeArticle', selectedArticle);
         Session.set('selectedArticle', null);
     },
     'click #empty': function() {
@@ -102,11 +72,32 @@ Template.admin.helpers({
     }
 });
 
+// Returns the Admin form values as an object
+var getFormFields = function (template) {
+    return {
+        'edition': template.find("#addEdition").value,
+        'url': template.find("#addUrl").value,
+        'pages': template.find("#addPages").value.split(","),
+        'title': template.find("#addTitle").value,
+        'author': template.find("#addAuthor").value,
+        'layout': template.find("#addLayout").value,
+        'type': template.find("#addType").value,
+        'tags': template.find("#addTags").value.split(",")
+    };
+};
+
 // Checks if form is filled out properly. Warns user if it is not.
-var formIsOK = function (fieldsToCheckObject) {
+var formIsOK = function (template) {
+    const formFields = getFormFields(template);
+    const mandatory = {
+        'Utgave': formFields.edition.trim(),
+        'URL': formFields.url.trim(),
+        'Sidetall': formFields.pages.filter(function(x) { return x.trim().length > 0 }),
+        'Tittel': formFields.title.trim()
+    };
     var ok = true;
-    _.each(fieldsToCheckObject, function (value, key) {
-        if (!value || value.length === 0) {
+    _.each(mandatory, function (value, key) {
+        if (!value || value.length < 1) {
             sAlert.error(key + ' mangler.');
             ok = false;
         }

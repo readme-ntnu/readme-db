@@ -25,13 +25,13 @@
       <tbody>
         {{#each article}}
         <tr class="{{selectedClass}}">
-          <td><a href="{{url}}">{{edition}}</a></td>
-          <td>{{pages}}</td>
-          <td>{{title}}</td>
-          <td>{{author}}</td>
-          <td>{{layout}}</td>
-          <td>{{type}}</td>
-          <td>{{tags}}</td>
+          <td id="edition" contenteditable="{{loggedIn}}"><a href="{{url}}">{{edition}}</a></td>
+          <td id="pages" contenteditable="{{loggedIn}}">{{pages}}</td>
+          <td id="title" contenteditable="{{loggedIn}}">{{title}}</td>
+          <td id="author" contenteditable="{{loggedIn}}">{{author}}</td>
+          <td id="layout" contenteditable="{{loggedIn}}">{{layout}}</td>
+          <td id="type" contenteditable="{{loggedIn}}">{{type}}</td>
+          <td id="tags" contenteditable="{{loggedIn}}">{{tags}}</td>
         </tr>
       {{/each}}
       </tbody>

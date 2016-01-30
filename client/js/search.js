@@ -7,10 +7,25 @@ Template.search.events({
     },
     'keyup [type=text]': function(event, template) {
         Session.set('searchText', event.target.value);
+    },
+    'blur td': function (event) {
+        console.log("BLUR!");
+        var inner = {};
+        const articleFieldName = event.target.id;
+        const newValue = event.target.innerText;
+        inner[articleFieldName] = newValue;
+        const fields = {$set: inner};
+        event.target.innerText = "";
+        Meteor.call('updateArticle', Session.get('selectedArticle'), fields);
+        sAlert.success('"' + this.title + '" ble endret.');
     }
 });
 
 Template.search.helpers({
+
+    'loggedIn': function () {
+        return Meteor.user() != null;
+    },
     // Updates URL without loading page. Makes sure the search text field's value equals the searchText variable.
     'searchText': function() {
         if (!Session.get('searchText') || Session.get('searchText').trim().length <= 0) {
