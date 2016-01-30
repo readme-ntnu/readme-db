@@ -9,20 +9,17 @@ Template.search.events({
         Session.set('searchText', event.target.value);
     },
     'blur td': function (event) {
-        console.log("BLUR!");
         var inner = {};
         const articleFieldName = event.target.id;
         const newValue = event.target.innerText;
         inner[articleFieldName] = newValue;
-        const fields = {$set: inner};
         event.target.innerText = "";
-        Meteor.call('updateArticle', Session.get('selectedArticle'), fields);
+        Meteor.call('updateArticle', Session.get('selectedArticle'), {$set: inner});
         sAlert.success('"' + this.title + '" ble endret.');
     }
 });
 
 Template.search.helpers({
-
     'loggedIn': function () {
         return Meteor.user() != null;
     },
