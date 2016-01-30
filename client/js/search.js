@@ -9,9 +9,10 @@ Template.search.events({
         Session.set('searchText', event.target.value);
     },
     'blur td': function (event) {
-        var inner = {};
         const articleFieldName = event.target.id;
         const newValue = event.target.innerText;
+        if (newValue === this[articleFieldName]) { return; }
+        var inner = {};
         inner[articleFieldName] = newValue;
         event.target.innerText = "";
         Meteor.call('updateArticle', Session.get('selectedArticle'), {$set: inner});
