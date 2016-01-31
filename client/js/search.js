@@ -10,12 +10,20 @@ Template.search.events({
     },
     'blur td': function (event) {
         const articleFieldName = event.target.id;
-        const newValue = event.target.innerText;
-        if (newValue === this[articleFieldName]) { return; }
+        const oldVal = this[articleFieldName];
+        const newVal = event.target.innerText.trim();
+        console.log(typeof oldVal);
+
+        if (newVal === oldVal) return;
+
+        if (typeof oldVal !== 'string') {
+            const newValArray = newVal.split(',').map(function (x) { return x.trim() });
+            if (equalsArray(oldVal, newValArray)) return;
+        }
         var inner = {};
-        inner[articleFieldName] = newValue;
+        inner[articleFieldName] = newVal;
         event.target.innerText = "";
-        Meteor.call('updateArticle', Session.get('selectedArticle'), {$set: inner});
+        Meteor.call('updateArticle', this._id, {$set: inner});
         sAlert.success('"' + this.title + '" ble endret.');
     }
 });
