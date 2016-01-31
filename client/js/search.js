@@ -13,8 +13,8 @@ Template.search.events({
         const oldVal = this[articleFieldName];
         var newVal = event.target.innerText.trim();
 
-        // If there's no change, do nothing.
-        if (newVal === oldVal) return;
+        // If there's no change, or user not logged in, do nothing.
+        if (newVal === oldVal || !Meteor.user()) return;
 
         // If the field being edited is empty and the field is mandatory, display error message and don't update.
         const mandatory = ['edition', 'pages', 'title'];
