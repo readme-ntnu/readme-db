@@ -3,39 +3,44 @@
     <h1>Admin</h1>
     {{#if currentUser}}
 
-    <div class="form-group">
-        <label for="addEdition">Utgavenummer <span>*</span></label>
-        <input class="form-control" id="addEdition" type="text" placeholder="YYYY-XX" value="{{edition}}" />
+    <div class="row">
+        <div class="col-xs-12 form-group">
+            <label for="addEdition">Utgavenummer <span>*</span></label>
+            <input class="form-control" id="addEdition" type="text" placeholder="YYYY-XX" value="{{edition}}" />
+        </div>
     </div>
 
-    <div class="form-group">
-        <label for="addPages">Sidetall <span>*</span></label>
-        <input class="form-control"  id="addPages" type="text" placeholder="8, 9" value="{{pages}}" />
+    <div class="row">
+        <div class="col-xs-12 col-md-2 form-group">
+            <label for="addPages">Sidetall <span>*</span></label>
+            <input class="form-control"  id="addPages" type="text" placeholder="8, 9" value="{{pages}}" />
+        </div>
+        <div class="col-xs-12 col-md-4 form-group">
+            <label for="addTitle">Tittel <span>*</span></label>
+            <input class="form-control"  id="addTitle" type="text" placeholder="Ostekake på Stripa" value="{{title}}" />
+        </div>
+
+        <div class="col-xs-12 col-md-3 form-group">
+            <label for="addTitle">Skribent</label>
+            <input class="form-control"  id="addAuthor" type="text" placeholder="Ola Nordmann"  value="{{author}}"/>
+        </div>
+
+        <div class="col-xs-12 col-md-3 form-group">
+            <label for="addLayout">Layout</label>
+            <input class="form-control"  id="addLayout" type="text" placeholder="Kari Nordmann" value="{{layout}}" />
+        </div>
     </div>
 
-    <div class="form-group">
-        <label for="addTitle">Tittel <span>*</span></label>
-        <input class="form-control"  id="addTitle" type="text" placeholder="Ostekake på Stripa" value="{{title}}" />
-    </div>
+    <div class="row">
+        <div class="col-xs-4 form-group">
+            <label for="addType">Spalte</label>
+            <input class="form-control"  id="addType" type="text" placeholder="Gløsløken" value="{{type}}" />
+        </div>
 
-    <div class="form-group">
-        <label for="addTitle">Skribent</label>
-        <input class="form-control"  id="addAuthor" type="text" placeholder="Ola Nordmann"  value="{{author}}"/>
-    </div>
-
-    <div class="form-group">
-        <label for="addLayout">Layout</label>
-        <input class="form-control"  id="addLayout" type="text" placeholder="Kari Nordmann" value="{{layout}}" />
-    </div>
-
-    <div class="form-group">
-        <label for="addType">Spalte</label>
-        <input class="form-control"  id="addType" type="text" placeholder="Gløsløken" value="{{type}}" />
-    </div>
-
-    <div class="form-group">
-        <label for="addTags">Tags</label>
-        <input class="form-control"  id="addTags" type="text" placeholder="Tags"  value="{{tags}}"/>
+        <div class="col-xs-8 form-group">
+            <label for="addTags">Tags</label>
+            <input class="form-control"  id="addTags" type="text" placeholder="Tags"  value="{{tags}}"/>
+        </div>
     </div>
 
     <button type="submit" class="btn btn-default" id="new">Legg til</button>
