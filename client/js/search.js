@@ -11,18 +11,39 @@ Template.search.events({
     'blur td': function (event) {
         const articleFieldName = event.target.id;
         const oldVal = this[articleFieldName];
-        const newVal = event.target.innerText.trim();
-        console.log(typeof oldVal);
+        var newVal = event.target.innerText.trim();
 
+        // If there's no change, do nothing.
         if (newVal === oldVal) return;
 
-        if (typeof oldVal !== 'string') {
-            const newValArray = newVal.split(',').map(function (x) { return x.trim() });
-            if (equalsArray(oldVal, newValArray)) return;
+        // If the field being edited is empty and the field is mandatory, display error message and don't update.
+        const mandatory = ['edition', 'pages', 'title'];
+        if (!newVal && mandatory.indexOf(articleFieldName) > -1) {
+            sAlert.error("Feltet kan ikke være tomt.");
+            return;
+        }
+
+        // If the field is containing an array, split the newVal into an array and compare. If no change, do nothing.
+        const arrayFields = ['pages', 'tags'];
+        if (typeof oldVal !== 'string' || arrayFields.indexOf(articleFieldName) > -1) {
+            newVal = newVal.split(',').map(function (x) { return x.trim() });
+            if (equalsArray(oldVal, newVal)) return;
         }
         var inner = {};
         inner[articleFieldName] = newVal;
-        event.target.innerText = "";
+
+        // If edition or pages is changed, remember to also update url
+        if (articleFieldName === 'edition') {
+            inner.url = getUrlFromEdition(newVal, this.pages);
+            event.target.innerHTML = '<a href="' + inner.url + '">' + newVal + '</a>';
+        }
+        else if (articleFieldName === 'pages') {
+            inner.url = getUrlFromEdition(this.edition, newVal);
+            event.target.innerText = "";
+        }
+        else {
+            event.target.innerText = "";
+        }
         Meteor.call('updateArticle', this._id, {$set: inner});
         sAlert.success('"' + this.title + '" ble endret.');
     }

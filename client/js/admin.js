@@ -42,10 +42,6 @@ Template.admin.helpers({
         if (Session.get('selectedArticle'))
             return ArticleList.findOne({_id: Session.get('selectedArticle')}).edition;
     },
-    'url': function () {
-        if (Session.get('selectedArticle'))
-            return ArticleList.findOne({_id: Session.get('selectedArticle')}).url;
-    },
     'pages': function () {
         if (Session.get('selectedArticle'))
             return ArticleList.findOne({_id: Session.get('selectedArticle')}).pages;
@@ -72,11 +68,10 @@ Template.admin.helpers({
     }
 });
 
-// Returns the Admin form values as an object
+// Returns the Admin form values as an object which reflects an article
 var getFormFields = function (template) {
-    return {
+    var fields = {
         'edition': template.find("#addEdition").value,
-        'url': template.find("#addUrl").value,
         'pages': template.find("#addPages").value.split(","),
         'title': template.find("#addTitle").value,
         'author': template.find("#addAuthor").value,
@@ -84,6 +79,8 @@ var getFormFields = function (template) {
         'type': template.find("#addType").value,
         'tags': template.find("#addTags").value.split(",")
     };
+    fields.url = getUrlFromEdition(fields.edition, fields.pages);
+    return fields;
 };
 
 // Checks if form is filled out properly. Warns user if it is not.
@@ -91,7 +88,6 @@ var formIsOK = function (template) {
     const formFields = getFormFields(template);
     const mandatory = {
         'Utgave': formFields.edition.trim(),
-        'URL': formFields.url.trim(),
         'Sidetall': formFields.pages.filter(function(x) { return x.trim().length > 0 }),
         'Tittel': formFields.title.trim()
     };

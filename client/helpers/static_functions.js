@@ -20,3 +20,10 @@ equalsArray = function (a, b) {
     }
     return true;
 };
+
+getUrlFromEdition = function (edition, pages) {
+    const y = edition.substring(0, 4);
+    const p = (edition === '2013-05') ? pages[0] : String(Math.floor(Number(pages[0]) / 2) + 1);
+    const base = 'http://readme.abakus.no/';
+    return (edition >= '2013-05') ? base + 'utgaver/' + y + '/' + edition + '.pdf#page=' + p :  base + '#' + edition;
+};
