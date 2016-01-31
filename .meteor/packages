@@ -10,7 +10,6 @@ jquery
 iron:router
 
 twbs:bootstrap
-natestrauser:x-editable-bootstrap
 tomi:upload-server
 tomi:upload-jquery
 standard-minifiers
