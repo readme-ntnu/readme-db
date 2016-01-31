@@ -10,40 +10,22 @@ Template.admin.events({
 
         // Make it easier to continue with next article
         template.find("#addPages").focus();
-        const nextPage = Number(fields.pages[fields.pages.length - 1]) + 1;
-        template.find("#addPages").value = String(nextPage);
-        switch (nextPage) {
-            case 2:
-                template.find("#addType").value = "Leder";
-                break;
-            case 3:
-                template.find("#addType").value = "Side 3";
-                break;
-            case 8:
-                template.find("#addType").value = "Gløsløken";
-                break;
-            case 14:
-                template.find("#addType").value = "Flørt";
-                break;
-            case 16:
-                template.find("#addType").value = "Siving";
-                break;
-            case 17:
-                template.find("#addType").value = "Ikke-siving";
-                break;
-            case 24:
-                template.find("#addType").value = "Utgavens algoritme";
-                break;
-            case 26:
-                template.find("#addType").value = "Utgavens konkurranse";
-                break;
-            case 27:
-                template.find("#addType").value = "Tegneserie";
-                break;
-            default:
-                template.find("#addType").value = "";
-                break;
-        }
+        const nextPage = String(Number(fields.pages[fields.pages.length - 1]) + 1);
+        template.find("#addPages").value = nextPage;
+
+        // Spalter
+        var types = {
+            2: "Leder",
+            3: "Side 3",
+            8: "Gløsløken",
+            14: "Flørt",
+            16: "Siving",
+            17: "Ikke-siving",
+            24: "Utgavens algoritme",
+            26: "Utgavens konkurranse",
+            27: "Tegneserie"
+        };
+        template.find("#addType").value = types[nextPage] || "";
     },
     'click #edit': function(event, template) {
         event.preventDefault();
