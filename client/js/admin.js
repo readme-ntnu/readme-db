@@ -7,7 +7,7 @@ Template.admin.events({
         }
         Meteor.call('insertArticle', fields, function (error, result) {
             if (error) {
-                sAlert.error('En feil skjedde ved lagring.');
+                sAlert.error(Defaults.errorMessageFromServer);
                 return;
             }
             Session.set('selectedArticle', result);
@@ -18,27 +18,14 @@ Template.admin.events({
         template.find("#addPages").focus();
         const nextPage = String(Number(fields.pages[fields.pages.length - 1]) + 1);
         template.find("#addPages").value = nextPage;
-
-        // Spalter
-        var types = {
-            2: "Leder",
-            3: "Side 3",
-            8: "Gløsløken",
-            14: "Flørt",
-            16: "Siving",
-            17: "Ikke-siving",
-            24: "Utgavens algoritme",
-            26: "Utgavens konkurranse",
-            27: "Tegneserie"
-        };
-        template.find("#addType").value = types[nextPage] || "";
+        template.find("#addType").value = ArticleConfig.types[nextPage] || "";
     },
     'click #edit': function(event, template) {
         event.preventDefault();
         if (formIsOK(template)) {
             const title = template.find("#addTitle").value;
             Meteor.call('updateArticle', Session.get('selectedArticle'), getFormFields(template), function (error) {
-                if (error) sAlert.error('Noe gikk galt!');
+                if (error) sAlert.error(Defaults.errorMessageFromServer);
                 else sAlert.success('Artikkel "' + title + '" ble endret.');
             });
         }
@@ -47,7 +34,7 @@ Template.admin.events({
         const title = template.find("#addTitle").value;
         Meteor.call('removeArticle', Session.get('selectedArticle'), function (error) {
             if (error) {
-                sAlert.error('Noe gikk galt!');
+                sAlert.error(Defaults.errorMessageFromServer);
                 return;
             }
             sAlert.success('Artikkel "' + title + '" ble slettet.');
@@ -73,7 +60,7 @@ var getFormFields = function (template) {
         'type': template.find("#addType").value,
         'tags': template.find("#addTags").value.split(",")
     };
-    fields.url = getUrlFromEdition(fields.edition, fields.pages);
+    fields.url = Helpers.getUrlFromEdition(fields.edition, fields.pages);
     return fields;
 };
 
