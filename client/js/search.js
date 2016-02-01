@@ -1,5 +1,10 @@
 Template.search.events({
-    'click tr': function() {
+    'click th': function (event) {
+        const newVal = event.target.id.substring(3);
+        Session.set('sortAscending', (Session.get('sortByColumn') !== newVal) ? true : !Session.get('sortAscending'));
+        Session.set('sortByColumn', newVal);
+    },
+    'click td': function () {
         Session.set('selectedArticle', this._id);
         if (Meteor.userId()) {
             sAlert.info('Artikkel "' + this.title + '" valgt. For å endre/fjerne <a href="/admin">trykk her.</a>', {html: true});
@@ -64,19 +69,33 @@ Template.search.helpers({
     },
     'article': function() {
 
+        var resultArray;
+
         // If search field is empty, show all
         if (!Session.get('searchText') || !Session.get('searchText').trim()) {
-            return ArticleList.search("").fetch();
+            resultArray = ArticleList.search("").fetch();
+        }
+        else {
+            // Array of all space-separated keywords
+            var keywords = Session.get("searchText").trim().split(" ");
+
+            // Make a search for each keyword and intersect with resultArray to find articles present in all
+            resultArray = ArticleList.search(keywords[0].trim()).fetch();
+            for (var i = 1; i < keywords.length; i++) {
+                resultArray = intersect(resultArray, ArticleList.search(keywords[i].trim()).fetch());
+            }
         }
 
-        // Array of all space-separated keywords
-        var keywords = Session.get("searchText").trim().split(" ");
+        // Sort by column property
+        const sortProp = Session.get('sortByColumn');
+        if (!sortProp) return resultArray;
 
-        // Make a search for each keyword and intersect with resultArray to find articles present in all
-        var resultArray = ArticleList.search(keywords[0].trim()).fetch();
-        for (var i = 1; i < keywords.length; i++) {
-            resultArray = intersect(resultArray, ArticleList.search(keywords[i].trim()).fetch());
-        }
+        resultArray.sort(function (a, b) {
+            const order = Session.get('sortAscending') ? 1 : -1;
+            if (a[sortProp] < b[sortProp]) return -1 * order;
+            if (a[sortProp] > b[sortProp]) return order;
+            return 0;
+        });
         return resultArray;
     },
     'selectedClass': function() {
