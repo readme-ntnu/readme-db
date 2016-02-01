@@ -20,11 +20,14 @@
           <th id="th-layout">Layout</th>
           <th id="th-type">Spalte</th>
           <th id="th-tags">Tags</th>
+          {{#if currentUser}}
+          <th id="th-delete">Slett</th>
+          {{/if}}
         </tr>
       </thead>
       <tbody>
         {{#each article}}
-        <tr class="{{selectedClass}}">
+        <tr>
           <td id="edition" contenteditable="{{loggedIn}}"><a href="{{url}}">{{edition}}</a></td>
           <td id="pages" contenteditable="{{loggedIn}}">{{pages}}</td>
           <td id="title" contenteditable="{{loggedIn}}">{{title}}</td>
@@ -32,6 +35,13 @@
           <td id="layout" contenteditable="{{loggedIn}}">{{layout}}</td>
           <td id="type" contenteditable="{{loggedIn}}">{{type}}</td>
           <td id="tags" contenteditable="{{loggedIn}}">{{tags}}</td>
+          {{#if currentUser}}
+          <td id="td-remove" contenteditable="false">
+            <button id="remove" class="btn btn-danger">
+              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            </button>
+          </td>
+          {{/if}}
         </tr>
       {{/each}}
       </tbody>

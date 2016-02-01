@@ -5,8 +5,14 @@ Template.admin.events({
         if (!formIsOK(template) || articleAlreadyExists(fields.edition, fields.pages, fields.title)) {
             return;
         }
-        Meteor.call('insertArticle', fields);
-        sAlert.success('Artikkel "' + fields.title + '" ble lagt til.');
+        Meteor.call('insertArticle', fields, function (error, result) {
+            if (error) {
+                sAlert.error('En feil skjedde ved lagring.');
+                return;
+            }
+            Session.set('selectedArticle', result);
+            sAlert.success('Artikkel "' + fields.title + '" ble lagt til.');
+        });
 
         // Make it easier to continue with next article
         template.find("#addPages").focus();
@@ -29,62 +35,30 @@ Template.admin.events({
     },
     'click #edit': function(event, template) {
         event.preventDefault();
-        const selectedArticleID = Session.get('selectedArticle');
-        if (!selectedArticleID) {
-            sAlert.error('Ingen artikkel er valgt.');
-            return;
-        }
         if (formIsOK(template)) {
             const title = template.find("#addTitle").value;
-            Meteor.call('updateArticle', selectedArticleID, getFormFields(template));
-            sAlert.success('Artikkel "' + title + '" ble endret.');
+            Meteor.call('updateArticle', Session.get('selectedArticle'), getFormFields(template), function (error) {
+                if (error) sAlert.error('Noe gikk galt!');
+                else sAlert.success('Artikkel "' + title + '" ble endret.');
+            });
         }
     },
     'click #remove': function(event, template) {
-        const selectedArticle = Session.get('selectedArticle');
-        if (!selectedArticle) {
-            sAlert.warning('Ingen artikkel er valgt.');
-            return;
-        }
         const title = template.find("#addTitle").value;
-        sAlert.success('Artikkel "' + title + '" ble slettet.');
-        Meteor.call('removeArticle', selectedArticle);
-        Session.set('selectedArticle', null);
-    },
-    'click #empty': function() {
-        Session.set('selectedArticle', null);
+        Meteor.call('removeArticle', Session.get('selectedArticle'), function (error) {
+            if (error) {
+                sAlert.error('Noe gikk galt!');
+                return;
+            }
+            sAlert.success('Artikkel "' + title + '" ble slettet.');
+            Session.set('selectedArticle', null);
+        });
     }
 });
 
 Template.admin.helpers({
-
-    'edition': function () {
-        if (Session.get('selectedArticle'))
-            return ArticleList.findOne({_id: Session.get('selectedArticle')}).edition;
-    },
-    'pages': function () {
-        if (Session.get('selectedArticle'))
-            return ArticleList.findOne({_id: Session.get('selectedArticle')}).pages;
-    },
-    'title': function () {
-        if (Session.get('selectedArticle'))
-            return ArticleList.findOne({_id: Session.get('selectedArticle')}).title;
-    },
-    'author': function () {
-        if (Session.get('selectedArticle'))
-            return ArticleList.findOne({_id: Session.get('selectedArticle')}).author;
-    },
-    'layout': function () {
-        if (Session.get('selectedArticle'))
-            return ArticleList.findOne({_id: Session.get('selectedArticle')}).layout;
-    },
-    'type': function () {
-        if (Session.get('selectedArticle'))
-            return ArticleList.findOne({_id: Session.get('selectedArticle')}).type;
-    },
-    'tags': function () {
-        if (Session.get('selectedArticle'))
-            return ArticleList.findOne({_id: Session.get('selectedArticle')}).tags;
+    'noArticleSelected': function () {
+        return !Session.get('selectedArticle');
     }
 });
 

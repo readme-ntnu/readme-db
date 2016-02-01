@@ -6,47 +6,46 @@
     <div class="row">
         <div class="col-xs-12 form-group">
             <label for="addEdition">Utgavenummer <span>*</span></label>
-            <input class="form-control" id="addEdition" type="text" placeholder="YYYY-XX" value="{{edition}}" />
+            <input class="form-control" id="addEdition" type="text" placeholder="YYYY-XX" />
         </div>
     </div>
 
     <div class="row">
         <div class="col-xs-12 col-md-2 form-group">
             <label for="addPages">Sidetall <span>*</span></label>
-            <input class="form-control"  id="addPages" type="text" placeholder="8, 9" value="{{pages}}" />
+            <input class="form-control"  id="addPages" type="text" placeholder="8, 9" />
         </div>
         <div class="col-xs-12 col-md-4 form-group">
             <label for="addTitle">Tittel <span>*</span></label>
-            <input class="form-control"  id="addTitle" type="text" placeholder="Ostekake på Stripa" value="{{title}}" />
+            <input class="form-control"  id="addTitle" type="text" placeholder="Ostekake på Stripa" />
         </div>
 
         <div class="col-xs-12 col-md-3 form-group">
             <label for="addTitle">Skribent</label>
-            <input class="form-control"  id="addAuthor" type="text" placeholder="Ola Nordmann"  value="{{author}}"/>
+            <input class="form-control"  id="addAuthor" type="text" placeholder="Ola Nordmann" />
         </div>
 
         <div class="col-xs-12 col-md-3 form-group">
             <label for="addLayout">Layout</label>
-            <input class="form-control"  id="addLayout" type="text" placeholder="Kari Nordmann" value="{{layout}}" />
+            <input class="form-control"  id="addLayout" type="text" placeholder="Kari Nordmann" />
         </div>
     </div>
 
     <div class="row">
         <div class="col-xs-4 form-group">
             <label for="addType">Spalte</label>
-            <input class="form-control"  id="addType" type="text" placeholder="Gløsløken" value="{{type}}" />
+            <input class="form-control"  id="addType" type="text" placeholder="Gløsløken" />
         </div>
 
         <div class="col-xs-8 form-group">
             <label for="addTags">Tags</label>
-            <input class="form-control"  id="addTags" type="text" placeholder="Tags"  value="{{tags}}"/>
+            <input class="form-control"  id="addTags" type="text" placeholder="Tags" />
         </div>
     </div>
 
     <button type="submit" class="btn btn-default" id="new">Legg til</button>
-    <button type="submit" class="btn btn-default" id="edit">Endre valgt</button>
-    <button type="submit" class="btn btn-default" id="remove">Slett valgt</button>
-    <button type="submit" class="btn btn-default" id="empty">Tøm alle felt</button>
+    <button type="submit" class="btn btn-default" id="edit" disabled="{{noArticleSelected}}">Endre valgt</button>
+    <button type="submit" class="btn btn-default" id="remove" disabled="{{noArticleSelected}}">Slett valgt</button>
 
     <p>Felt merket med <span class="red">*</span> er obligatoriske.</p>
 

@@ -4,22 +4,40 @@ Template.search.events({
         Session.set('sortAscending', (Session.get('sortByColumn') !== newVal) ? true : !Session.get('sortAscending'));
         Session.set('sortByColumn', newVal);
     },
+    'click #remove': function () {
+        const articleID = this._id;
+        if (!articleID) return;
+        const title = this.title;
+        new Confirmation({
+            message: 'Er du sikker på at du vil slette "' + title + '"?',
+            title: "Slett artikkel",
+            cancelText: "Nei, avbryt",
+            okText: "Ja, slett",
+            success: false // true: green button, false: red button
+        }, function (ok) {
+            // ok is true if the user clicked on "ok", false otherwise
+            if (!ok) return;
+            Meteor.call('removeArticle', articleID, function(error) {
+                if (error) sAlert.error('Noe gikk galt!');
+                else sAlert.success('"' + title + '" ble fjernet.');
+            });
+        });
+    },
     'click td': function () {
         Session.set('selectedArticle', this._id);
-        if (Meteor.userId()) {
-            sAlert.info('Artikkel "' + this.title + '" valgt. For å endre/fjerne <a href="/admin">trykk her.</a>', {html: true});
-        }
     },
     'keyup [type=text]': function(event, template) {
         Session.set('searchText', event.target.value);
     },
+    // Is called when a table cell that is being edited loses focus.
     'blur td': function (event) {
         const articleFieldName = event.target.id;
         const oldVal = this[articleFieldName];
         var newVal = event.target.innerText.trim();
+        var article = this;
 
-        // If there's no change, or user not logged in, do nothing.
-        if (newVal === oldVal || !Meteor.user()) return;
+        // If there's no change, or user not logged in, or the cell clicked is the remove button, do nothing.
+        if (newVal === oldVal || !Meteor.user() || articleFieldName === "remove") return;
 
         // If the field being edited is empty and the field is mandatory, display error message and don't update.
         const mandatory = ['edition', 'pages', 'title'];
@@ -39,18 +57,20 @@ Template.search.events({
 
         // If edition or pages is changed, remember to also update url
         if (articleFieldName === 'edition') {
-            inner.url = getUrlFromEdition(newVal, this.pages);
+            inner.url = getUrlFromEdition(newVal, article.pages);
             event.target.innerHTML = '<a href="' + inner.url + '">' + newVal + '</a>';
         }
         else if (articleFieldName === 'pages') {
-            inner.url = getUrlFromEdition(this.edition, newVal);
+            inner.url = getUrlFromEdition(article.edition, newVal);
             event.target.innerText = "";
         }
         else {
             event.target.innerText = "";
         }
-        Meteor.call('updateArticle', this._id, {$set: inner});
-        sAlert.success('"' + this.title + '" ble endret.');
+        Meteor.call('updateArticle', article._id, {$set: inner}, function (error) {
+            if (error) sAlert.error('Noe gikk galt!');
+            else sAlert.success('"' + article.title + '" ble endret. ("' + oldVal + '" --> "' + newVal + '")');
+        });
     }
 });
 
@@ -97,10 +117,5 @@ Template.search.helpers({
             return 0;
         });
         return resultArray;
-    },
-    'selectedClass': function() {
-        if (Session.get('selectedArticle') === this._id) {
-            return 'selected';
-        }
     }
 });
