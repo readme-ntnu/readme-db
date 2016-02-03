@@ -14,5 +14,3 @@ crashlytics.properties
 crashlytics-build.properties
 *.sh
 *.tar.gz
-*.bson
-*.json
