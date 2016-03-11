@@ -5,7 +5,7 @@ Template.search.events({
         Session.set('sortByColumn', newVal);
     },
     'click #remove': function () {
-        if (!this._id) return;
+        if (!this._id || !Helpers.checkConnectionStatus()) return;
         const article = this;
         new Confirmation(Defaults.removalConfirmation(article), function (ok) {
             // ok is true if the user clicked on "ok", false otherwise

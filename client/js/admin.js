@@ -1,5 +1,6 @@
 Template.admin.events({
     'click #new': function(event, template) {
+        if (!Helpers.checkConnectionStatus()) return;
         event.preventDefault();
         var fields = getFormFields(template);
         if (!formIsOK(template) || articleAlreadyExists(fields.edition, fields.pages, fields.title)) {
@@ -21,6 +22,7 @@ Template.admin.events({
         template.find("#addType").value = ArticleConfig.types[nextPage] || "";
     },
     'click #edit': function(event, template) {
+        if (!Helpers.checkConnectionStatus()) return;
         event.preventDefault();
         if (formIsOK(template)) {
             const title = template.find("#addTitle").value;
@@ -31,6 +33,7 @@ Template.admin.events({
         }
     },
     'click #remove': function(event, template) {
+        if (!Helpers.checkConnectionStatus()) return;
         const title = template.find("#addTitle").value;
         Meteor.call('removeArticle', Session.get('selectedArticle'), function (error) {
             if (error) {
