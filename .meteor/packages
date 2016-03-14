@@ -10,8 +10,6 @@ jquery
 iron:router
 
 twbs:bootstrap
-tomi:upload-server
-tomi:upload-jquery
 standard-minifiers
 meteor-base
 mobile-experience

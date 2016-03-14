@@ -8,7 +8,8 @@ Defaults = {
             title: "Slett artikkel",
             cancelText: "Nei, avbryt",
             okText: "Ja, slett",
-            success: false // true: green button, false: red button
+            success: false, // true: green button, false: red button
+            focus: "cancel"
         };
     },
 
