@@ -6,6 +6,7 @@ out/
 .idea_modules/
 
 settings.json
+settings-production.json
 mup.json
 
 atlassian-ide-plugin.xml
