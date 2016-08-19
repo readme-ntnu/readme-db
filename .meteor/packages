@@ -3,26 +3,28 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
-autopublish
-accounts-password
-accounts-ui
-jquery
+autopublish@1.0.7
+accounts-password@1.3.0
+accounts-ui@1.1.9
+jquery@1.11.9
 iron:router
 
 twbs:bootstrap
-standard-minifiers
-meteor-base
-mobile-experience
-mongo
-blaze-html-templates
-session
-tracker
-logging
-reload
-random
-ejson
-spacebars
-check
+meteor-base@1.0.4
+mobile-experience@1.0.4
+mongo@1.1.11
+blaze-html-templates@1.0.4
+session@1.1.6
+tracker@1.1.0
+logging@1.1.15
+reload@1.1.10
+random@1.0.10
+ejson@1.0.12
+spacebars@1.0.12
+check@1.2.3
 juliancwirko:s-alert
 matdutour:popup-confirm
 reywood:iron-router-ga
+standard-minifier-css
+standard-minifier-js
+shell-server
