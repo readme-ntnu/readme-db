@@ -4,6 +4,9 @@ html {
 th {
     cursor: pointer
 }
+#th-edition {
+    min-width: 70px;
+}
 #top {
     margin-top: 40px;
     margin-bottom: 40px;
