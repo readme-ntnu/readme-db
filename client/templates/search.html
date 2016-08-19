@@ -10,41 +10,43 @@
       <span class="help-block">{{article.length}} artikler funnet.</span>
     </div>
 
-    <table class="table table-striped table-hover">
-      <thead>
-        <tr>
-          <th id="th-edition">Utgave</th>
-          <th id="th-pages">Side</th>
-          <th id="th-title">Tittel</th>
-          <th id="th-author">Skribent</th>
-          <th id="th-layout">Layout</th>
-          <th id="th-type">Spalte</th>
-          <th id="th-tags">Tags</th>
-          {{#if currentUser}}
-          <th id="th-delete">Slett</th>
-          {{/if}}
-        </tr>
-      </thead>
-      <tbody>
-        {{#each article}}
-        <tr>
-          <td id="edition" contenteditable="{{loggedIn}}"><a href="{{url}}">{{edition}}</a></td>
-          <td id="pages" contenteditable="{{loggedIn}}">{{pages}}</td>
-          <td id="title" contenteditable="{{loggedIn}}">{{title}}</td>
-          <td id="author" contenteditable="{{loggedIn}}">{{author}}</td>
-          <td id="layout" contenteditable="{{loggedIn}}">{{layout}}</td>
-          <td id="type" contenteditable="{{loggedIn}}">{{type}}</td>
-          <td id="tags" contenteditable="{{loggedIn}}">{{tags}}</td>
-          {{#if currentUser}}
-          <td id="td-remove" contenteditable="false">
-            <button id="remove" class="btn btn-danger">
-              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-            </button>
-          </td>
-          {{/if}}
-        </tr>
-      {{/each}}
-      </tbody>
-  </table>
+    <div class="table-responsive">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th id="th-edition">Utgave</th>
+            <th id="th-pages">Side</th>
+            <th id="th-title">Tittel</th>
+            <th id="th-author">Skribent</th>
+            <th id="th-layout">Layout</th>
+            <th id="th-type">Spalte</th>
+            <th id="th-tags">Tags</th>
+            {{#if currentUser}}
+            <th id="th-delete">Slett</th>
+            {{/if}}
+          </tr>
+        </thead>
+        <tbody>
+          {{#each article}}
+          <tr>
+            <td class="td-edition" contenteditable="{{loggedIn}}"><a href="{{url}}">{{edition}}</a></td>
+            <td class="td-pages" contenteditable="{{loggedIn}}">{{pages}}</td>
+            <td class="td-title" contenteditable="{{loggedIn}}">{{title}}</td>
+            <td class="td-author" contenteditable="{{loggedIn}}">{{author}}</td>
+            <td class="td-layout" contenteditable="{{loggedIn}}">{{layout}}</td>
+            <td class="td-type" contenteditable="{{loggedIn}}">{{type}}</td>
+            <td class="td-tags" contenteditable="{{loggedIn}}">{{tags}}</td>
+            {{#if currentUser}}
+            <td id="td-remove" contenteditable="false">
+              <button id="remove" class="btn btn-danger">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+              </button>
+            </td>
+            {{/if}}
+          </tr>
+        {{/each}}
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>

@@ -15,7 +15,7 @@ th {
     color: red
 }
 .img-header {
-    max-width: 600px;
+    max-width: 100%;
     margin: auto;
 }
 .navbar {
