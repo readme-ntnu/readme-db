@@ -35,7 +35,9 @@ Template.search.events({
   },
     // Is called when a table cell that is being edited loses focus.
   'blur td'(event) {
-    const articleFieldName = event.target.id;
+    // Example className: 'td-title'. Example articleFieldName: 'title'
+    const articleFieldName = event.target.className.substring(3);
+
     const oldVal = this[articleFieldName];
     let newVal = event.target.innerText.trim();
     const article = this;
