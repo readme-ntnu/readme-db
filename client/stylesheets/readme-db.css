@@ -13,12 +13,16 @@ th {
 #top {
     margin-top: 40px;
     margin-bottom: 40px;
+    text-align: center;
+}
+#top > h1 {
+    margin-top: 0;
 }
 .red, label span {
     color: red
 }
 .img-header {
-    max-width: 100%;
+    max-width: 50%;
     margin: auto;
 }
 .navbar {
@@ -50,5 +54,8 @@ input[readonly] {
 @media (max-width: 767px) {
     #main-table-wrapper {
         overflow-x: auto;
+    }
+    .img-header {
+      max-width: 100%;
     }
 }
