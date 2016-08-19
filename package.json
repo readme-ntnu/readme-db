@@ -1,0 +1,22 @@
+{
+  "name": "readme-db",
+  "description": "Article lookup service for the magazine 'readme' at NTNU, Trondheim, Norway.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/draperunner/readme-db.git"
+  },
+  "author": "Mats Byrkjeland <matsbyr@gmail.com> (http://byrkje.land)",
+  "devDependencies": {
+    "babel-eslint": "^6.1.2",
+    "eslint": "^3.3.1",
+    "eslint-config-airbnb": "^10.0.1",
+    "eslint-import-resolver-meteor": "^0.3.1",
+    "eslint-plugin-import": "^1.13.0",
+    "eslint-plugin-jsx-a11y": "^2.1.0",
+    "eslint-plugin-meteor": "^4.0.0",
+    "eslint-plugin-react": "^6.1.2"
+  },
+  "dependencies": {
+    "meteor-node-stubs": "^0.2.3"
+  }
+}

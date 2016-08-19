@@ -4,6 +4,7 @@
 .idea/
 out/
 .idea_modules/
+node_modules
 
 settings.json
 settings-production.json

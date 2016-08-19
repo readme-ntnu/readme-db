@@ -1,0 +1,31 @@
+{
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "allowImportExportEverywhere": true
+  },
+  "plugins": [
+    "meteor"
+  ],
+  "extends": [
+    "airbnb",
+    "plugin:meteor/recommended"
+  ],
+  "globals": {
+    "history": false;
+  },
+  "settings": {
+    "import/resolver": "meteor"
+  },
+  "rules": {
+    "arrow-body-style": "warn",
+    "comma-dangle": "error",
+    "import/no-extraneous-dependencies": "off",
+    "meteor/no-session": "off",
+    "new-cap": ["error", { "capIsNewExceptions": ["OneOf"] }],
+    "no-multiple-empty-lines": ["error", { "max": 2, "maxEOF": 1, "maxBOF": 1 }],
+    "no-new": "warn",
+    "no-param-reassign": "warn",
+    "no-underscore-dangle": "off",
+    "object-shorthand": ["error", "always", { "avoidQuotes": false }]
+  }
+}
