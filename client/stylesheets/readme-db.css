@@ -1,6 +1,9 @@
 html {
     overflow-y: scroll;
 }
+#main-table-wrapper {
+    overflow-x: visible;
+}
 th {
     cursor: pointer
 }
@@ -43,4 +46,9 @@ th {
 input[readonly] {
     background-color: white !important;
     cursor: text !important;
+}
+@media (max-width: 767px) {
+    #main-table-wrapper {
+        overflow-x: auto;
+    }
 }
