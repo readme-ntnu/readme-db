@@ -4,7 +4,7 @@ import { Meteor } from 'meteor/meteor';
 Meteor.startup(() => {
   sAlert.config({
     effect: '',
-    position: 'top',
+    position: 'bottom',
     timeout: 3000,
     html: false,
     onRouteClose: true,
