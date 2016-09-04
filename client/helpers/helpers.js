@@ -33,11 +33,10 @@ const Helpers = {
     // Computes the correct url from the edition and pages properties of an article
   getUrlFromEdition(edition, pages) {
     const y = edition.substring(0, 4);
-    const p = (edition === '2013-05') ? pages[0] : String(Math.floor(Number(pages[0]) / 2) + 1);
+    // Get correct PDF page number. Those before 2013-06 are single-page PDFs.
+    const p = (edition < '2013-06') ? pages[0] : String(Math.floor(Number(pages[0]) / 2) + 1);
     const base = 'http://readme.abakus.no/';
-    return (edition >= '2013-05')
-      ? `${base}utgaver/${y}/${edition}.pdf#page=${p}`
-      : `${base}#${edition}`;
+    return `${base}utgaver/${y}/${edition}.pdf#page=${p}`;
   },
 
     // Check connection status. If not connected, warn user.
