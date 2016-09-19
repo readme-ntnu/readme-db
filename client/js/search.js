@@ -5,6 +5,7 @@ import Helpers from '../helpers/helpers';
 import Defaults from '../helpers/defaults';
 import ArticleConfig from '../config/articles-config';
 import ArticleList from '../../lib/ArticleList';
+import debounce from '../../lib/debounce';
 /* global sAlert, Confirmation */
 
 Template.search.events({
@@ -31,7 +32,7 @@ Template.search.events({
     Session.set('selectedArticle', this._id);
   },
   'keyup [type=text]'(event) {
-    Session.set('searchText', event.target.value);
+    debounce(() => { Session.set('searchText', event.target.value); }, 400)();
   },
     // Is called when a table cell that is being edited loses focus.
   'blur td'(event) {
