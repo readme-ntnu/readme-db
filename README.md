@@ -17,14 +17,14 @@ The article database is currently served on [http://arkiv.abakus.no](http://arki
 
 ### Setup
 
-1. Install [Meteor](https://www.meteor.com/) 
+1. Install [Meteor](https://www.meteor.com/)
 2. Get all the files and start the server:  
 ```
 $ git clone git@github.com:draperunner/readme-db.git  
 $ cd readme-db  
 $ meteor
 ```
-3. Fill database with article data. (PS! Not updated! For dev purposes only)  
-`$ mongorestore --host 127.0.0.1:3001 -d meteor articles.bson`
-4. Edit `lib/account_settings`, set `forbidClientAccountCreation` to false. This lets you create a user. 
+3. Fill database with article data. (PS! Not updated! For dev purposes only). Do this in a __new terminal__ while meteor runs:
+```$ mongorestore --host 127.0.0.1:3001 -d meteor articles.bson```
+4. Edit `lib/account_settings`, set `forbidClientAccountCreation` to false. This lets you create a user.
 Set it to true again after you have created a user.
