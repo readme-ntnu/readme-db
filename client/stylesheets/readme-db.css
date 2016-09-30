@@ -11,8 +11,8 @@ th {
     min-width: 70px;
 }
 #top {
-    margin-top: 40px;
-    margin-bottom: 40px;
+    margin: 0;
+    padding: 20px 60px;
     text-align: center;
 }
 #top > h1 {
@@ -29,7 +29,6 @@ a#login-name-link:hover, a#login-sign-in-link:hover {
     color: red
 }
 .img-header {
-    max-width: 50%;
     margin: auto;
 }
 .navbar {
