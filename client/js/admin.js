@@ -1,8 +1,8 @@
 import { Template } from 'meteor/templating';
 import { Session } from 'meteor/session';
 import { Meteor } from 'meteor/meteor';
-import Helpers from '../helpers/helpers';
-import Defaults from '../helpers/defaults';
+import Helpers from '../../lib/helpers/helpers';
+import Defaults from '../../lib/helpers/defaults';
 import ArticleConfig from '../config/articles-config';
 import ArticleList from '../../lib/ArticleList';
 /* global sAlert */

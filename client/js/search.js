@@ -1,8 +1,8 @@
 import { Template } from 'meteor/templating';
 import { Session } from 'meteor/session';
 import { Meteor } from 'meteor/meteor';
-import Helpers from '../helpers/helpers';
-import Defaults from '../helpers/defaults';
+import Helpers from '../../lib/helpers/helpers';
+import Defaults from '../../lib/helpers/defaults';
 import ArticleConfig from '../config/articles-config';
 import ArticleList from '../../lib/ArticleList';
 import debounce from '../../lib/debounce';
@@ -113,11 +113,9 @@ Template.search.helpers({
       const keywords = Session.get('searchText').trim().split(' ');
 
       // Search for each keyword and intersect with resultArray to find articles present in all
-      resultArray = ArticleList.search(keywords[0].trim()).fetch();
-      for (let i = 1; i < keywords.length; i++) {
-        const keyWord = keywords[i].trim();
-        resultArray = Helpers.intersect(resultArray, ArticleList.search(keyWord).fetch());
-      }
+      resultArray = keywords
+        .map(keyword => ArticleList.search(keyword.trim()).fetch())
+        .reduce(Helpers.intersect);
     }
 
     // Sort by column property
