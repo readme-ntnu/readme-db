@@ -8,7 +8,7 @@ const slack = {
     const keywords = query.trim().split(' ');
 
     // The url corresponding to this search on arkiv.abakus.no
-    const url = `http://arkiv.abakus.no/${query}`;
+    const url = `http://arkiv.abakus.no/${query.trim().replace(/\s/g, '+')}`;
 
     // Search for each keyword and intersect with resultArray to find articles present in all
     const articles = keywords
