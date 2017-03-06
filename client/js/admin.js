@@ -78,33 +78,6 @@ Template.admin.events({
     templateInstance.find('#addPages').value = nextPage;
     templateInstance.find('#addType').value = ArticleConfig.types[nextPage] || '';
   },
-  'click #edit': (event, templateInstance) => {
-    if (!Helpers.checkConnectionStatus()) return;
-    event.preventDefault();
-    if (formIsOK(templateInstance)) {
-      const title = templateInstance.find('#addTitle').value;
-      Meteor.call(
-        'updateArticle',
-        Session.get('selectedArticle'),
-        getFormFields(templateInstance),
-        (error) => {
-          if (error) sAlert.error(Defaults.errorMessageFromServer);
-          else sAlert.success(`Artikkel "${title}" ble endret.`);
-        });
-    }
-  },
-  'click #remove': (event, templateInstance) => {
-    if (!Helpers.checkConnectionStatus()) return;
-    const title = templateInstance.find('#addTitle').value;
-    Meteor.call('removeArticle', Session.get('selectedArticle'), (error) => {
-      if (error) {
-        sAlert.error(Defaults.errorMessageFromServer);
-        return;
-      }
-      sAlert.success(`Artikkel "${title}" ble slettet.`);
-      Session.set('selectedArticle', null);
-    });
-  },
 });
 
 Template.admin.helpers({
