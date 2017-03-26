@@ -4,7 +4,6 @@ import { Meteor } from 'meteor/meteor';
 import Helpers from '../../lib/helpers/helpers';
 import Defaults from '../../lib/helpers/defaults';
 import ArticleConfig from '../config/articles-config';
-import ArticleList from '../../lib/ArticleList';
 import debounce from '../../lib/debounce';
 /* global sAlert, Confirmation */
 
@@ -103,31 +102,35 @@ Template.search.helpers({
   },
 
   article() {
-    let resultArray;
+    // Array of all space-separated keywords
+    // const keywords = Session.get('searchText').trim().split(' ');
 
-    // If search field is empty, show all
-    if (!Session.get('searchText') || !Session.get('searchText').trim()) {
-      resultArray = ArticleList.search('').fetch();
-    } else {
-      // Array of all space-separated keywords
-      const keywords = Session.get('searchText').trim().split(' ');
+    // Search for each keyword and intersect with resultArray to find articles present in all
+    Meteor.call('search', Session.get('searchText') || '', (error, res) => {
+      if (error) {
+        return;
+      }
 
-      // Search for each keyword and intersect with resultArray to find articles present in all
-      resultArray = keywords
-        .map(keyword => ArticleList.search(keyword.trim()).fetch())
-        .reduce(Helpers.intersect);
-    }
+      // Sort results by text search score
+      const result = res.sort((a, b) => b.score - a.score);
 
-    // Sort by column property
-    const sortProp = Session.get('sortByColumn');
-    if (!sortProp) return resultArray;
+        // Sort by column property
+      const sortProp = Session.get('sortByColumn');
+      if (!sortProp) {
+        Session.set('articles', result);
+        return;
+      }
 
-    resultArray.sort((a, b) => {
-      const order = Session.get('sortAscending') ? 1 : -1;
-      if (a[sortProp] < b[sortProp]) return -1 * order;
-      if (a[sortProp] > b[sortProp]) return order;
-      return 0;
+      result.sort((a, b) => {
+        const order = Session.get('sortAscending') ? 1 : -1;
+        if (a[sortProp] < b[sortProp]) return -1 * order;
+        if (a[sortProp] > b[sortProp]) return order;
+        return 0;
+      });
+
+      Session.set('articles', result);
     });
-    return resultArray;
+
+    return Session.get('articles');
   },
 });

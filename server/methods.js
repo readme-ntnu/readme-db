@@ -35,4 +35,24 @@ Meteor.methods({
     check(selectedArticle, String);
     return ArticleList.remove(selectedArticle);
   },
+  search(query) {
+    check(query, String);
+    const q = query ? query.replace(/[/\\^$*+?.()|[\]{}]/g, '\\$&') : '';
+
+    return ArticleList.find(
+      {
+        $text: { $search: q },
+      },
+      {
+        fields: {
+          score: { $meta: 'textScore' },
+        },
+      },
+      {
+        sort: {
+          score: { $meta: 'textScore' },
+        },
+      }
+    ).fetch();
+  },
 });
