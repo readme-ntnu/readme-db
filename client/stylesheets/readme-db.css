@@ -1,6 +1,9 @@
 html {
     overflow-y: scroll;
 }
+#search-field {
+    padding: 0;
+}
 #main-table-wrapper {
     overflow-x: visible;
 }

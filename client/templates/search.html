@@ -1,15 +1,25 @@
 <template name="search" xmlns="http://www.w3.org/1999/html">
 
   <div class="row">
-    <div class="form-group col-xs-12">
+    <div id="search-field" class="form-group col-xs-12">
       <input type="text"
         id="searchField"
         class="form-control"
         placeholder="Søk etter skribenter, layoutansvarlige, artikkeltitler eller andre stikkord."
         value="{{searchText}}" autofocus/>
+      {{#if searchText}}
       <span class="help-block">{{article.length}} artikler funnet.</span>
+      {{/if}}
     </div>
 
+    {{#unless searchText}}
+    <h1>Søkehjelp</h1>
+    <p>Du kan bruke hermetegn til å søke etter eksakte fraser: <code>"readme tester kaffe"</code></p>
+    <p>Du kan bruke minus til å utelate ord og fraser: <code>readme tester -kaffe</code></p>
+    <p>Du kan bruke fraser for å få kun artikler som inneholder alle søkeordene: <code>"odd" "mats"</code></p>
+    {{/unless}}
+
+    {{#if article}}
     <div id="main-table-wrapper" class="table-responsive">
       <table class="table table-striped table-hover">
         <thead>
@@ -48,5 +58,6 @@
         </tbody>
       </table>
     </div>
+    {{/if}}
   </div>
 </template>
