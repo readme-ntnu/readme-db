@@ -15,6 +15,7 @@ const getFormFields = (template) => {
     title: template.find('#addTitle').value,
     author: template.find('#addAuthor').value,
     layout: template.find('#addLayout').value,
+    photo: template.find('#addPhoto').value,
     type: template.find('#addType').value,
     tags: template.find('#addTags').value.split(','),
   };
