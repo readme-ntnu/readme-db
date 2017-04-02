@@ -18,6 +18,7 @@ const getFormFields = (template) => {
     photo: template.find('#addPhoto').value,
     type: template.find('#addType').value,
     tags: template.find('#addTags').value.split(','),
+    content: template.find('#addContent').value,
   };
   fields.url = Helpers.getUrlFromEdition(fields.edition, fields.pages);
   return fields;
