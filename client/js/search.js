@@ -97,7 +97,7 @@ Template.search.helpers({
       history.pushState({}, '', '/');
       return '';
     }
-    history.pushState({}, '', Session.get('searchText'));
+    history.pushState({}, '', encodeURIComponent(Session.get('searchText')));
     return Session.get('searchText');
   },
 
