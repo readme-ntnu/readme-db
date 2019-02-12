@@ -7,19 +7,19 @@
   },
   "author": "Mats Byrkjeland <matsbyr@gmail.com> (http://byrkje.land)",
   "devDependencies": {
-    "babel-eslint": "^6.1.2",
-    "eslint": "^3.3.1",
-    "eslint-config-airbnb": "^10.0.1",
-    "eslint-import-resolver-meteor": "^0.3.1",
-    "eslint-plugin-import": "^1.13.0",
-    "eslint-plugin-jsx-a11y": "^2.1.0",
-    "eslint-plugin-meteor": "^4.0.0",
-    "eslint-plugin-react": "^6.1.2"
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.13.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-import-resolver-meteor": "^0.4.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-meteor": "^5.1.0",
+    "eslint-plugin-react": "^7.12.4"
   },
   "dependencies": {
-    "@babel/runtime": "^7.0.0-beta.40",
+    "@babel/runtime": "^7.3.1",
     "babel-runtime": "^6.26.0",
-    "bcrypt": "^1.0.2",
-    "meteor-node-stubs": "^0.2.3"
+    "bcrypt": "^3.0.4",
+    "meteor-node-stubs": "^0.4.1"
   }
 }
